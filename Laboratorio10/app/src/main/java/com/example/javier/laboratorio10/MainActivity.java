@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -12,7 +13,7 @@ import android.webkit.WebViewClient;
 
 public class MainActivity extends AppCompatActivity {
 
-    String url = "http://demo.tutorialzine.com/2012/04/mobile-touch-gallery/";
+    String url = "http://almaaustralis.cl/";//"http://demo.tutorialzine.com/2012/04/mobile-touch-gallery/";
     WebView web;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         settings.setJavaScriptEnabled(true);
         settings.setBuiltInZoomControls(true);
         web.loadUrl(url);
+        WebInterface webInterface = new WebInterface(this);
+        web.addJavascriptInterface(webInterface,"android");
+        webInterface.consoleMessage("Mens");
 
         web.setWebViewClient(new WebViewClient(){
             public boolean shouldOverrideUrlLoading(WebView webView,String url){
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Log.d("Lab","goBack");
         if (web.canGoBack()) {
             web.goBack();
         } else {
